@@ -55,8 +55,6 @@ def main(config,n_datasets):
         exit()
 
     print(data.keys())
-    # Create the model
-    # This will map gen -> Reco
     if config['method'] == 'Pion':
         num_layers = int(config['model']['num_layers'])
         PID = 211
@@ -78,19 +76,14 @@ def main(config,n_datasets):
     net.to('cuda')
     net.load_state_dict(dicte['net_state_dict'])
     n_samples = int(config['Inference']['samples'])
-
-    #momentum_bins = [0.9,1.5,2.0,2.5,3.0,3.5,4.0,4.5,5.0,5.5,6.0,6.5,7.0,7.5,8.0,8.5]
-    #momentum_bins = [6.0,6.5,7.0,7.5,8.0,8.5]
     
     
     barIDs = np.array(data['BarID'])
     barX = np.array(data['X'])
     P_ = np.array(data['P'])
     print("Momentum: ",np.min(P_),np.max(P_))
-    #momentum_bins = np.arange(np.min(P_),np.max(P_)+0.5,0.5) # 500 MeV bins
-    #momentum_bins = np.arange(3.98,np.max(P_)+0.5,0.5)
-    momentum_bins = [3.978703, 4.478703, 4.978703, 5.478703, 5.978703, 6.478703, 6.978703, 7.478703, 7.978703, 8.478703,
-                    8.978703]
+    momentum_bins = np.arange(np.min(P_),np.max(P_)+0.5,0.5) # 500 MeV bins
+
     print('Generating chunked dataset for {0} momentum bins.'.format(len(momentum_bins)))
     print(momentum_bins)
     print(" ")
@@ -124,7 +117,6 @@ def main(config,n_datasets):
                 
 
                 with torch.set_grad_enabled(False):
-                    #gen = net.probabalistic_sample(pre_compute_dist=3000,context=k,photon_yield=num_samples)
                     gen = net.create_tracks(num_samples=num_samples,context=k)
                     gen['BarID'] = bars[i]
                     gen['X'] = xs[i]

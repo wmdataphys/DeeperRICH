@@ -1,10 +1,10 @@
 #!/bin/tcsh
 # Going to stop at folder 071502 for now. - June 6 2024
 # Source the ROOT environment script
-source /sciclone/home/jgiroux/root/bin/thisroot.csh
+source ~/root/bin/thisroot.csh
 
 # Base directory containing the numbered folders
-set base_dir = /sciclone/data10/jgiroux/Cherenkov/Real_Data/June5_2024
+set base_dir = /Cherenkov/ParticleGun
 
 # Create a single json directory in the base directory
 set json_dir = "${base_dir}/json"

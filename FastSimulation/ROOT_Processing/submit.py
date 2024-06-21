@@ -2,8 +2,7 @@ import os
 import subprocess
 
 # Base directory containing the numbered folders
-base_dir = '/sciclone/data10/jgiroux/Cherenkov/Real_Data/June5_2024'
-#base_dir = '/sciclone/data10/jgiroux/Cherenkov/Real_Data/InvMassData'
+base_dir = '/Cherenkov/ParticleGun'
 json_base_dir = os.path.join(base_dir, 'json')
 os.makedirs(json_base_dir, exist_ok=True)
 

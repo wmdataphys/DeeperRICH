@@ -105,10 +105,9 @@ void MakeDictionaries(TString inFileName, TString outFileName = "Phi.json")
     {
         glx_ch->GetEntry(ev);
         const int ps = glx_events->GetEntriesFast();
-        if (ps != 2)
+        if (ps > 2)
         {
-          //cout << "Skipping because p " << ps << endl;
-          continue; // Why is this ??
+          continue;
         }
 
         for (int p = 0; p < ps; p++)
@@ -116,10 +115,10 @@ void MakeDictionaries(TString inFileName, TString outFileName = "Phi.json")
             //cout << "EV: " << ev << ": " << p << endl;
             
             glx_nextEventc(ev,p,10);
-            if (glx_event->GetChiSq() > 5.0)
-            { 
-                continue;
-            }
+            // if (glx_event->GetChiSq() > 5.0)
+            // { 
+            //     continue;
+            // }
 
             EventStruct evtStruct;
             evtStruct.EventID = ev;

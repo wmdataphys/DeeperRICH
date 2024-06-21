@@ -7,14 +7,13 @@ if ($#argv < 1) then
 endif
 
 # Source the ROOT environment script
-source /sciclone/home/jgiroux/root/bin/thisroot.csh
+source ~/root/bin/thisroot.csh
 
 # Base directory containing the numbered folders
 set folder = $argv[1]
 
 # Create a single json directory in the base directory
-#set json_dir = "/sciclone/data10/jgiroux/Cherenkov/Real_Data/InvMassData/json"
-set json_dir = "/sciclone/data10/jgiroux/Cherenkov/Real_Data/June5_2024/json"
+set json_dir = "/Cherenkov/ParticleGun/json"
 
 mkdir -p $json_dir
 

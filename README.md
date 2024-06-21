@@ -117,3 +117,11 @@ The script will produce plots for segmented regions along each DIRC bar.
 ![alt text](Figures/Kaons_BarID10_x(0,10).png)
     
 ![alt text](Figures/Pions_BarID31_x(0,10).png)
+
+You can generate artificial datasets with the following command:
+
+`python generate_dataset.py --config config/pgun_config.json --n_datasets 1`
+
+The --n_datasets will correspond to how many times you want to artificially generate the statistics used for training/validation/testing. You can then modify the other config file provided in the Transformer folder to train on Fast Simulated data. Note that the "nf_generated" field of the config file must be set accordingly.
+
+You will also need to merge these datasets either by hand or using the merge_data.py file in the **Processing** folder. If done by hand, ensure that you shuffle the data being that we generate in bins of momentum.
