@@ -24,17 +24,12 @@ We conclude by discussing the implications and future extensions of this work, w
 
 # Requirements
 
-Python:     3.11.4
-
-Pytorch:    2.0.1
-
-CUDA:       11.7
-
-[FrEIA](https://github.com/vislearn/FrEIA)
-
-[NFlows](https://github.com/bayesiains/nflows)
-
-[ROOT](https://root.cern/install/)
+- Python:     3.11.4
+- Pytorch:    2.0.1
+- CUDA:       11.7
+- [FrEIA](https://github.com/vislearn/FrEIA)
+- [NFlows](https://github.com/bayesiains/nflows)
+- [ROOT](https://root.cern/install/)
 
 The dependencies for the Fast Simulation models and Transformer can be install using the .yml files in the respective folders.
 
