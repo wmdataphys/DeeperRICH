@@ -54,7 +54,7 @@ Once data is proccessed with our C script, we will use python to extract data in
 
 You will need to run this command multiple times if you have multiple simulation files / particle types.
 
-You can then modify the paths in the merge_data.py file and use it to merge data in a 70/15/15% train, validation, test split. You can also do this by hand. These .pkl files will be directly used to train the transformer.
+You can then modify the paths in the merge_data.py file and use it to merge data in a 70/15/15% train, validation, test split. You can also do this by hand. These .pkl files will be directly used to train the Transformer.
 
 Once this is done, you can use the Make_Data.ipynb notebook to create the datasets needed for Fast Simulation.
 
@@ -74,13 +74,13 @@ In order to use Normalizing Flows, you will need to train two models. One for ea
 
 Training is configuration file based for both methods. Within each folder you will find the respective configuration files that detail hyperparameter choices, along with path information. You will need to create directories (where you choose) to house the trained models. You will need to update the configuration file (config/<file>.json) to point to this folder, along with where the data files are located.
     
-To train the transformer you can run the following command:
+To train the Transformer you can run the following command:
     
 `$ python train_swin.py --config config/pgun_config.json --distributed 0`
 
 If you have multiple GPUs you may set --distributed 1 to speed up training. 
 
-This will create a folder within the "output/dir" folder of the config file that will be named based on the "name" field of the config file. The weights at each epoch will be saved here for later use. You can also train the transformer on Fast Simulated data (provided you have generated it) by modification of the other configuration file provided.
+This will create a folder within the "output/dir" folder of the config file that will be named based on the "name" field of the config file. The weights at each epoch will be saved here for later use. You can also train the Transformer on Fast Simulated data (provided you have generated it) by modification of the other configuration file provided.
 
 Training of the normalizing flow functions the same manner, although you will need to specify in the config file which of the two PIDs you would like to train on, *i.e.*, "Kaon" or "Pion" within the "method" field.
 
@@ -89,9 +89,9 @@ Training of the normalizing flow functions the same manner, although you will ne
 
 ## Testing
 
-Create a folder within the transformer directory called "Figures".
+Create a folder within the Transformer directory called "Figures".
     
-Once you have models trained, you can test the transformer with the following command:
+Once you have models trained, you can test the Transformer with the following command:
     
 `$ python run_inference.py --config config/pgun_config.json --trained_as_distributed 0`
 
