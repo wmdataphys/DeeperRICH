@@ -7,12 +7,8 @@ The code base for: arxiv link.
 
 
 # Abstract 
-Imaging Cherenkov detectors are crucial for particle identification (PID) in nuclear and particle physics experiments. Fast reconstruction algorithms are essential for real-time alignment, calibration, data quality control, and speeding up analysis. At the future Electron-Ion Collider (EIC), the ePIC detector will feature a dual Ring Imaging Cherenkov (dual-RICH) detector in the hadron direction, a Detector of Internally Reflected Cherenkov (DIRC) in the barrel, and a proximity focus RICH in the electron direction. This paper focuses on the DIRC detector, which presents complex hit patterns and is also used for PID of pions and kaons in the \gluex experiment at JLab.
-%
-We present Deep(er)RICH, an extension of the seminal DeepRICH work, offering improved and faster PID compared to traditional methods and, for the first time, fast and accurate simulation. This advancement addresses a major bottleneck in Cherenkov detector simulations involving photon tracking through complex surfaces.
-%
+Imaging Cherenkov detectors are crucial for particle identification (PID) in nuclear and particle physics experiments. Fast reconstruction algorithms are essential for real-time alignment, calibration, data quality control, and speeding up analysis. At the future Electron-Ion Collider (EIC), the ePIC detector will feature a dual Ring Imaging Cherenkov (dual-RICH) detector in the hadron direction, a Detector of Internally Reflected Cherenkov (DIRC) in the barrel, and a proximity focus RICH in the electron direction. This paper focuses on the DIRC detector, which presents complex hit patterns and is also used for PID of pions and kaons in the \gluex experiment at JLab. We present Deep(er)RICH, an extension of the seminal DeepRICH work, offering improved and faster PID compared to traditional methods and, for the first time, fast and accurate simulation. This advancement addresses a major bottleneck in Cherenkov detector simulations involving photon tracking through complex surfaces.
 Our results leverage advancements in vision Transformers, specifically Swin and normalizing flows. These methods enable direct learning from real data and the reconstruction of complex topologies.
-%
 We conclude by discussing the implications and future extensions of this work, which can offer capabilties for PID for multiple cutting-edge experiments. 
 
 # Contents
