@@ -2,20 +2,10 @@ import os
 import subprocess
 
 # Directory containing the files
-#files_directory = "/sciclone/data10/jgiroux/Cherenkov/Real_Data/json"
 # Kaons
-#files_directory = "/sciclone/data10/jgiroux/Cherenkov/CleanDecays/gen_2k_noRand/monitoring_hists/json"
-#files_directory = "/sciclone/data10/jgiroux/Cherenkov/NoiseDecays/gen_2k/monitoring_hists/json"
+files_directory = "/Cherenkov/ParticleGun/gen_k/monitoring_hists/json"
 # Pions
-#files_directory = "/sciclone/data10/jgiroux/Cherenkov/CleanDecays/gen_2pi_noRand/monitoring_hists/json"
-#files_directory = "/sciclone/data10/jgiroux/Cherenkov/NoiseDecays/gen_2pi/monitoring_hists/json"
-
-# Real data - June 5, 2024
-
-files_directory = "/sciclone/data10/jgiroux/Cherenkov/Real_Data/June5_2024/json"
-#                     
-#files_directory = "/sciclone/data10/jgiroux/Cherenkov/Real_Data/InvMassData/071952/json"
-#files_directory = "/sciclone/data10/jgiroux/Cherenkov/Real_Data/InvMassData/json"
+files_directory = "/Cherenkov/ParticleGun/gen_pi/monitoring_hists/json"
 
 # Path to the Python script to be executed
 python_script = "/sciclone/home/jgiroux/Cherenkov_FastSim/Processing/make_GlueX_data.py"
@@ -35,10 +25,9 @@ for filename in os.listdir(files_directory):
     if os.path.isfile(os.path.join(files_directory, filename)):
         # Construct the full file path
         file_path = os.path.join(files_directory, filename)
-        #file_path = os.path.join(files_directory,"hd_root_071725.json")
-        # Calculate the RAM requirement based on the size of the file (in megabytes)
         file_size_mb = os.path.getsize(file_path) / (1024 * 1024)  # Convert bytes to megabytes
         ram_per_job = int(file_size_mb * 2)  # Set RAM to be 2 times the size of the file
+        # If needed you can do dynamic memory allocation in jobs. Just used fixed memory for now to prevent I/O issues.
         
         # Create a submission script for each file
         submission_script = f"""\

@@ -23,7 +23,6 @@ from sklearn.metrics import accuracy_score
 from sklearn.metrics import roc_auc_score
 from sklearn import metrics
 import matplotlib.pyplot as plt
-from models.lydia_model import CNN
 import time
 from sklearn.metrics import accuracy_score, roc_auc_score, roc_curve
 from torch.nn.parallel import DataParallel

@@ -10,8 +10,6 @@ def count_lines(filename):
         return sum(1 for line in file)
 
 def extract_json(file_path):
-    #data_dict = {'EventID':None, 'PDG':None, 'NHits':None, 'BarID':None, 'P':None, 'Theta':None, 'Phi':None, 'X':None, 'Y':None, 'Z':None, 'pmtID':None, 'pixelID':None, 'channel':None, 'leadTime':None}
-    data_dict = {}
     EventID = []
     PDG = []
     NHits = []
@@ -37,7 +35,6 @@ def extract_json(file_path):
     print("Extracting data from json file.")
     with open(file_path) as f:
         for line in f:
-            #data.append(json.loads(line))
             data = json.loads(line)
             EventID.append(data['EventID'])
             PDG.append(data['PDG'])
@@ -90,8 +87,6 @@ def extract_json(file_path):
     return data_dict
 
 def parse_data(data_dict):
-    #clean_events = [] # For GlueX data we need to consider both cases under one file. Simulation use notebook.
-    #PIDS = [-321,321] # You need to change this for Phi (K+,K-,321,-321) or Rho (pi+,pi-, 211,-22) decays
     print(" ")
     print("Parsing dictionary.")
     pions = []
@@ -103,25 +98,20 @@ def parse_data(data_dict):
     kbar = pkbar.Kbar(target=len(np.unique(data_dict['EventID'])), width=20, always_stateful=False)
     l = 0
     # For actual data or simulated decays of rho and phi
-    rho_mass_upper = 0.9
-    rho_mass_lower = 0.6
-    phi_mass_lower = 1.0
-    phi_mass_upper = 1.04
+    # rho_mass_upper = 0.9
+    # rho_mass_lower = 0.6
+    # phi_mass_lower = 1.0
+    # phi_mass_upper = 1.04
     # For particle gun -> Inv mass has no meaning here
-    #rho_mass_upper = np.inf
-    #rho_mass_lower = -np.inf
-    #phi_mass_lower = -np.inf
-    #phi_mass_upper = np.inf
+    rho_mass_upper = np.inf
+    rho_mass_lower = -np.inf
+    phi_mass_lower = -np.inf
+    phi_mass_upper = np.inf
     for j in np.unique(data_dict['EventID']):
         idx = np.where(data_dict['EventID'] == j)[0]
         ys = data_dict['Y'][idx]
-        #print('PDG',data_dict['PDG'][idx])
-        #print(j)
-        #if len(idx) < 2:
-        #    print("Skipping event.")
-        #    continue
             
-        if len(idx) != 2:
+        if len(idx) > 2:
             print('Skipping event.')
             kbar.update(l)
             l+=1
@@ -138,13 +128,11 @@ def parse_data(data_dict):
                 continue
             else:
                 temp_oboxes = np.array(data_dict['pmtID'][idx[0]])//108
-                #print(temp_oboxes)
                 hits_in_obox0 = np.where(temp_oboxes == 0)[0]
                 hits_in_obox1 = np.where(temp_oboxes == 1)[0]
                 obox_0_idx = np.where(data_dict['Y'][idx] < 0)[0][0]
                 obox_1_idx = np.where(data_dict['Y'][idx] > 0)[0][0]
 
-                #print(obox_0_idx,obox_1_idx)
                 
                 pmt_obox_0 = np.array(data_dict['pmtID'][idx[0]])[hits_in_obox0]
                 pmt_obox_1 = np.array(data_dict['pmtID'][idx[0]])[hits_in_obox1]
@@ -155,8 +143,6 @@ def parse_data(data_dict):
                 channel_obox_0 = np.array(data_dict['channel'][idx[0]])[hits_in_obox0]
                 channel_obox_1 = np.array(data_dict['channel'][idx[0]])[hits_in_obox1]
                 
-                #print(pmt_obox_0)
-                
                 
                 event0 = {'EventID':idx[0],'invMass':data_dict['invMass'][idx][obox_0_idx], 'PDG':data_dict['PDG'][idx][obox_0_idx], 'NHits':len(pmt_obox_0), 'BarID':data_dict['BarID'][idx][obox_0_idx], 'P':data_dict['P'][idx][obox_0_idx], 'Theta':data_dict['Theta'][idx][obox_0_idx], 'Phi':data_dict['Phi'][idx][obox_0_idx], 'X':data_dict['X'][idx][obox_0_idx], 'Y':data_dict['Y'][idx][obox_0_idx], 'Z':data_dict['Z'][idx][obox_0_idx],
                         'pmtID':pmt_obox_0, 'pixelID':pixel_obox_0, 'channel':channel_obox_0, 'leadTime':leadTime_obox_0,'LikelihoodElectron':data_dict['LikelihoodElectron'][idx][obox_0_idx],'LikelihoodPion':data_dict['LikelihoodPion'][idx][obox_0_idx],'LikelihoodKaon':data_dict['LikelihoodKaon'][idx][obox_0_idx],'LikelihoodProton':data_dict['LikelihoodProton'][idx][obox_0_idx]}
@@ -164,22 +150,20 @@ def parse_data(data_dict):
                         'pmtID':pmt_obox_1, 'pixelID':pixel_obox_1, 'channel':channel_obox_1, 'leadTime':leadTime_obox_1,'LikelihoodElectron':data_dict['LikelihoodElectron'][idx][obox_1_idx],'LikelihoodPion':data_dict['LikelihoodPion'][idx][obox_1_idx],'LikelihoodKaon':data_dict['LikelihoodKaon'][idx][obox_1_idx],'LikelihoodProton':data_dict['LikelihoodProton'][idx][obox_1_idx]}
                 
             if (event0['PDG'] in PIDS) and (len(pmt_obox_0) < 300) and (event0['P'] < conditional_maxes[0]) and (event0['P'] > conditional_mins[0]) and (event0['Theta'] < conditional_maxes[1]) and (event0['Theta'] > conditional_mins[1]) and (event0['Phi'] < conditional_maxes[2]) and (event0['Phi'] > conditional_mins[2]):
-                #clean_events.append(event0)
+
                 if (abs(event0['PDG']) == 321) and (event0['invMass'] > phi_mass_lower) and (event0['invMass'] < phi_mass_upper):
                     kaons.append(event0)
                 elif (abs(event0['PDG']) == 211) and (event0['invMass'] > rho_mass_lower) and (event0['invMass'] < rho_mass_upper):
                     pions.append(event0) # Else its a pion
                 else:
-                    #print('Skipped')
                     continue
+
             if (event1['PDG'] in PIDS) and (len(pmt_obox_1) < 300)  and (event1['P'] < conditional_maxes[0]) and (event1['P'] > conditional_mins[0]) and (event1['Theta'] < conditional_maxes[1]) and (event1['Theta'] > conditional_mins[1]) and (event1['Phi'] < conditional_maxes[2]) and (event1['Phi'] > conditional_mins[2]):
-                #clean_events.append(event1)
                 if (abs(event1['PDG']) == 321) and (event1['invMass'] > phi_mass_lower) and (event1['invMass'] < phi_mass_upper):
                     kaons.append(event1)
                 elif (abs(event1['PDG']) == 211) and (event1['invMass'] > rho_mass_lower) and (event1['invMass'] < rho_mass_upper):
                     pions.append(event1) # Else its a pion
                 else:
-                    #print("skipped")
                     continue
 
             if event1['PDG'] not in PIDS or event0['PDG'] not in PIDS:
@@ -213,9 +197,7 @@ def parse_data(data_dict):
                 elif (abs(event['PDG']) == 211) and (event['invMass'] > rho_mass_lower) and (event['invMass'] < rho_mass_upper) and (event['NHits'] < 300):
                     pions.append(event) # Else its a pion
                 else:
-                    #print('Skipped single track')
                     continue
-                #clean_events.append(event)
         kbar.update(l)
         l+=1
 
@@ -230,10 +212,6 @@ def main(args):
     pions,kaons = parse_data(data_dict)
     file = str(args.file).split("/")[-1]
     out_dir = os.path.join(args.base_dir,"processed")
-
-    #if not os.path.exists(out_dir):
-    #    print("Creating output directory: ",out_dir)
-    #    os.mkdir(out_dir)
 
     print(out_dir)
 
@@ -256,7 +234,7 @@ if __name__=='__main__':
     parser = argparse.ArgumentParser(description='Data Processing')
     parser.add_argument('-f', '--file', default="hd_root_071725.json", type=str,
                         help='Path to the .json data folder.')
-    parser.add_argument('-d', '--base_dir', default="/sciclone/data10/jgiroux/Cherenkov/Real_Data/json", type=str,
+    parser.add_argument('-d', '--base_dir', default="/Cherenkov/ParticleGun/json", type=str,
                         help='.json File name.')
     args = parser.parse_args()
 
