@@ -1,0 +1,61 @@
+{
+    "name": "Swin_PGun",
+    "seed":8,
+    "classification":1,
+    "nf_generated": 0,
+    "sim_type": "pgun",
+    "stats": {"x_max": 898,"x_min":0,"y_max":298,"y_min":0,"time_max":500.00,"time_min":0.0,"P_max":8.5 ,"P_min":0.95 ,"theta_max": 11.63,"theta_min": 0.90,"phi_max": 175.5, "phi_min":-176.0},
+    "model": {
+       "patch_size": 2,
+       "channels": 2,
+       "embed_dim":48,
+       "drop_rates": [0.1,0.1,0.1,0.1],
+       "num_heads": [3,6,12,24],
+       "depths" :[2,2,6,2],
+       "window_size": 7
+    },
+    "dataset":  {
+        "training": {
+            "pion_data_path" : "/sciclone/data10/jgiroux/Cherenkov/ParticleGun/Training_Pions_Particle_Gun.pkl",
+            "kaon_data_path" : "/sciclone/data10/jgiroux/Cherenkov/ParticleGun/Training_Kaons_Particle_Gun.pkl"
+        },
+        "validation":{
+            "pion_data_path" : "/sciclone/data10/jgiroux/Cherenkov/ParticleGun/Validation_Pions_Particle_Gun.pkl",
+            "kaon_data_path" : "/sciclone/data10/jgiroux/Cherenkov/ParticleGun/Validation_Kaons_Particle_Gun.pkl"
+        },
+        "testing":{
+            "pion_data_path" : "/sciclone/data10/jgiroux/Cherenkov/ParticleGun/Testing_Pions_Particle_Gun.pkl",
+            "kaon_data_path" : "/sciclone/data10/jgiroux/Cherenkov/ParticleGun/Testing_Kaons_Particle_Gun.pkl"
+    }
+    },
+    "lr_scheduler": {
+        "step_size": 30,
+        "gamma": 0.1
+    },
+    "optimizer": {
+        "lr": 1e-4
+    },
+    "num_epochs":100,
+    "dataloader": {
+        "train": {
+            "batch_size": 128,
+            "num_workers": 8
+    	},
+        "val": {
+            "batch_size": 128,
+            "num_workers": 8
+        },
+        "test": {
+            "batch_size": 6000,
+            "num_workers": 8
+        }
+    },
+    "output": {
+	"dir": "Cherenkov/Trained_Models"
+    },
+    "Inference": {
+        "model_path": "Cherenkov/Trained_Models/Swin_PGun_FIFO___May-23-2024/Swin_PGun_FIFO_epoch50_val_loss_0.331779_val_acc_0.860349.pth",
+        "model_path_NF2x": "Cherenkov/Trained_Models/SwinNFGenerated_2xPGUN_FIFO___May-29-2024/SwinNFGenerated_2xPGUN_FIFO_epoch50_val_loss_0.265031_val_acc_0.880503.pth",
+        "fig_dir": "Figures/ParticleGun"
+    }
+}

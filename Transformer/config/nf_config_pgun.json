@@ -1,0 +1,60 @@
+{
+    "name": "Swin_NFGen",
+    "seed":8,
+    "classification":1,
+    "nf_generated": 1,
+    "sim_type": "pgun",
+    "stats": {"x_max": 898,"x_min":0,"y_max":298,"y_min":0,"time_max":500.00,"time_min":0.0,"P_max":8.5 ,"P_min":0.95 ,"theta_max": 11.63,"theta_min": 0.90,"phi_max": 175.5, "phi_min":-176.0},
+    "model": {
+       "patch_size": 2,
+       "channels": 2,
+       "embed_dim":48,
+       "drop_rates": [0.1,0.1,0.1,0.1],
+       "num_heads": [3,6,12,24],
+       "depths" :[2,2,6,2],
+       "window_size": 7
+    },
+    "dataset":  {
+        "training": {
+            "pion_data_path": "Cherenkov/ParticleGun/Generated_Data/NF_Generated/Pion/Training_NF_Generated_Pions.pkl",
+            "kaon_data_path": "Cherenkov/ParticleGun/Generated_Data/NF_Generated/Kaon/Training_NF_Generated_Kaons.pkl"
+        },
+        "validation":{
+            "pion_data_path" : "Cherenkov/ParticleGun/Generated_Data/NF_Generated/Pion/Validation_NF_Generated_Pions.pkl",
+            "kaon_data_path" : "Cherenkov/ParticleGun/Generated_Data/NF_Generated/Kaon/Validation_NF_Generated_Kaons.pkl"
+        },
+        "testing":{
+            "pion_data_path" : "Cherenkov/ParticleGun/Generated_Data/NF_Generated/Kaon/Testing_NF_Generated_Pions.pkl",
+            "kaon_data_path" : "Cherenkov/ParticleGun/Generated_Data/NF_Generated/Kaon/Testing_NF_Generated_Kaons.pkl"
+    }
+    },
+    "lr_scheduler": {
+        "step_size": 30,
+        "gamma": 0.1
+    },
+    "optimizer": {
+        "lr": 1e-4
+    },
+    "num_epochs":100,
+    "dataloader": {
+        "train": {
+            "batch_size": 128,
+            "num_workers": 8
+    	},
+        "val": {
+            "batch_size": 128,
+            "num_workers": 8
+        },
+        "test": {
+            "batch_size": 128,
+            "num_workers": 0
+        }
+    },
+    "output": {
+	"dir": "Cherenkov/Trained_Models"
+    },
+    "Inference": {
+        "model_path": "",
+        "fig_dir": "Figures/NFGenTraining"
+    }
+}

@@ -1,0 +1,14 @@
+*log*
+*.out
+*Figures*
+*oldfiles*
+*pycache*
+*.pcm*
+*.so*
+*.d*
+*scripts*
+*Untitled*
+*slurm_sub*
+*submit_torque*
+*Inference*
+*Figures*
