@@ -162,7 +162,7 @@ def main(config,n_datasets):
     num_blocks = int(config['model']['num_blocks'])
     hidden_nodes = int(config['model']['hidden_nodes'])
     stats = config['stats']
-    net = MAAF(input_shape,num_layers,cond_shape,embedding=False,hidden_units=hidden_nodes,num_blocks=num_blocks,stats=stats)
+    net = FreiaNet(input_shape,num_layers,cond_shape,embedding=False,hidden_units=hidden_nodes,num_blocks=num_blocks,stats=stats)
     t_params = sum(p.numel() for p in net.parameters())
     print("Network Parameters: ",t_params)
     device = torch.device('cuda')
