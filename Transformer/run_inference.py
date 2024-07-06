@@ -152,8 +152,8 @@ def main(config,trained_as_distributed):
     print(" ")
     sim_type = config['sim_type']
 
-    if sim_type == 'decays':
-        idx_ = np.where((conditions[:,0] > 2.0) & (conditions[:,0] < 8.0))
+    if (sim_type == 'decays') or (sim_type == 'pgun'):
+        idx_ = np.where((conditions[:,0] > 1.0) & (conditions[:,0] < 6.5))
         predictions = predictions[idx_]
         truth = truth[idx_]
         dll_geom = dll_geom[idx_]
@@ -198,9 +198,9 @@ def main(config,trained_as_distributed):
     # ROC as a function of momentum
     
     if sim_type == 'pgun':
-        mom_ranges = [1.0,1.5,2.0,2.5,3.0,3.5,4.0,4.5,5.0,5.5,6.0,6.5,7.0,7.5,8.0,8.5]
+        mom_ranges = [1.0,1.5,2.0,2.5,3.0,3.5,4.0,4.5,5.0,5.5,6.0,6.5]
     elif sim_type == 'decays':
-        mom_ranges = [2.0,2.5,3.0,3.5,4.0,4.5,5.0,5.5,6.0,6.5,7.0,7.5,8.0]
+        mom_ranges = [2.0,2.5,3.0,3.5,4.0,4.5,5.0,5.5,6.0,6.5]
     else:
         print("")
         print("Please ensure sim_type is correctly set in the config file.")
@@ -276,7 +276,10 @@ def main(config,trained_as_distributed):
     plt.errorbar(centers,aucs,yerr=[np.array(aucs) - np.array(aucs_lower),np.array(aucs_upper) - np.array(aucs)],label=r"$AUC_{Swin.}$",color='red',marker='o',capsize=5)
     #plt.errorbar(centers,swin['aucs'],yerr=[np.array(swin['aucs']) - np.array(swin['lowers']),np.array(swin['uppers']) - np.array(swin['aucs'])],label=r"$AUC_{Swin._{2x \; Fast Sim.}}$",color='k',marker='o',capsize=5)
     #plt.legend(loc=(0.602,0.67),fontsize=20)
-    plt.legend(loc=(0.654,0.74),fontsize=20)
+    legend1 = plt.legend(loc='lower left', fontsize=24)
+    legend1.get_frame().set_facecolor('white')  # Set legend facecolor
+    legend1.get_frame().set_edgecolor('grey')  # Set legend edgecolor
+    legend1.get_frame().set_alpha(1.0)  # Set legend alpha
     plt.xlabel("momentum [GeV/c]",fontsize=30,labelpad=10)
     plt.ylabel("AUC",fontsize=30,labelpad=10)
     plt.xticks(fontsize=22)  # adjust fontsize as needed
@@ -300,7 +303,10 @@ def main(config,trained_as_distributed):
     ax2.bar(np.array(centers) + 0.1, n_kaons, width=0.2, label='Kaons', color='green', alpha=0.25)
     ax2.set_ylabel('Counts', fontsize=30,labelpad=10)
     ax2.tick_params(axis='y', labelsize=20)
-    ax2.legend(loc='upper right', fontsize=20)
+    legend2 = ax2.legend(loc='upper right', fontsize=24)
+    legend2.get_frame().set_facecolor('white')  # Set legend facecolor
+    legend2.get_frame().set_edgecolor('grey')  # Set legend edgecolor
+    legend2.get_frame().set_alpha(1.0)  # Set legend alpha
     out_path = os.path.join(fig_dir,"Swin_AUC_func_P.pdf")
     plt.savefig(out_path,bbox_inches='tight')
     plt.close()

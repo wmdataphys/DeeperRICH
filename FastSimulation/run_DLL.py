@@ -233,20 +233,20 @@ def plot_DLL(kaons,pions,out_folder,datatype,sim_type):
     ll_p = ll_p[np.where((kin_p[:,0] > 3.0) & (kin_p[:,0] < 3.5))[0]]
     nhits_pi = nhits_pi[np.where((kin_p[:,0] > 3.0) & (kin_p[:,0] < 3.5))[0]]
 
-    if sim_type == 'decays':
+    if (sim_type == 'decays') or (sim_tpye == 'pgun'):
         # from NF first
-        idx_ = np.where((kin_k[:,0] > 2.0) & (kin_k[:,0] < 8.0))
+        idx_ = np.where((kin_k[:,0] > 1.0) & (kin_k[:,0] < 6.5))
         dll_k = dll_k[idx_]
         kin_k = kin_k[idx_]
-        idx_ = np.where((kin_p[:,0] > 2.0) & (kin_p[:,0] < 8.0))
+        idx_ = np.where((kin_p[:,0] > 1.0) & (kin_p[:,0] < 6.5))
         dll_p = dll_p[idx_]
         kin_p = kin_p[idx_]
 
         # Geom 
-        idx_ = np.where((kin_k_geom[:,0] > 2.0) & (kin_k_geom[:,0] < 8.0))
+        idx_ = np.where((kin_k_geom[:,0] > 1.0) & (kin_k_geom[:,0] < 6.5))
         dll_k_geom = dll_k_geom[idx_]
         kin_k_geom = kin_k_geom[idx_]
-        idx_ = np.where((kin_p_geom[:,0] > 2.0) & (kin_p_geom[:,0] < 8.0))
+        idx_ = np.where((kin_p_geom[:,0] > 1.0) & (kin_p_geom[:,0] < 6.5))
         dll_p_geom = dll_p_geom[idx_]
         kin_p_geom = kin_p_geom[idx_]
 
@@ -351,9 +351,9 @@ def plot_DLL(kaons,pions,out_folder,datatype,sim_type):
 
     # ROC as a function of momentum
     if sim_type == 'pgun':
-        mom_ranges = [1.0,1.5,2.0,2.5,3.0,3.5,4.0,4.5,5.0,5.5,6.0,6.5,7.0,7.5,8.0,8.5]
+        mom_ranges = [1.0,1.5,2.0,2.5,3.0,3.5,4.0,4.5,5.0,5.5,6.0,6.5]
     elif sim_type == 'decays':
-        mom_ranges = [2.0,2.5,3.0,3.5,4.0,4.5,5.0,5.5,6.0,6.5,7.0,7.5,8.0]
+        mom_ranges = [2.0,2.5,3.0,3.5,4.0,4.5,5.0,5.5,6.0,6.5]
     else:
         print("")
         print("Please ensure sim_type is correctly set in the config file.")
@@ -424,7 +424,10 @@ def plot_DLL(kaons,pions,out_folder,datatype,sim_type):
     plt.errorbar(centers,aucs,yerr=[np.array(aucs) - np.array(aucs_lower),np.array(aucs_upper) - np.array(aucs)],label=r"$AUC_{NF.}$",color='red',marker='o',capsize=5)
     if plot_swin:
         plt.errorbar(centers,swin['aucs'],yerr=[np.array(swin['aucs']) - np.array(swin['lowers']),np.array(swin['uppers']) - np.array(swin['aucs'])],label=r"$AUC_{Swin.}$",color='k',marker='o',capsize=5)
-    plt.legend(loc=(0.652,0.68),fontsize=20)
+    legend1 = plt.legend(loc='lower left', fontsize=24)
+    legend1.get_frame().set_facecolor('white')  # Set legend facecolor
+    legend1.get_frame().set_edgecolor('grey')  # Set legend edgecolor
+    legend1.get_frame().set_alpha(1.0)  # Set legend alpha
     plt.xlabel("momentum [GeV/c]",fontsize=30,labelpad=10)
     plt.ylabel("AUC",fontsize=30,labelpad=10)
     plt.xticks(fontsize=22)  # adjust fontsize as needed
@@ -448,7 +451,10 @@ def plot_DLL(kaons,pions,out_folder,datatype,sim_type):
     ax2.bar(np.array(centers) + 0.1, n_kaons, width=0.2, label='Kaons', color='green', alpha=0.25)
     ax2.set_ylabel('Counts', fontsize=30,labelpad=10)
     ax2.tick_params(axis='y', labelsize=20)
-    ax2.legend(loc='upper right', fontsize=20)
+    legend2 = ax2.legend(loc='upper right', fontsize=24)
+    legend2.get_frame().set_facecolor('white')  # Set legend facecolor
+    legend2.get_frame().set_edgecolor('grey')  # Set legend edgecolor
+    legend2.get_frame().set_alpha(1.0)  # Set legend alpha
     out_path_AUC_func_P = os.path.join(out_folder,"DLL_AUC_func_P.pdf")
     plt.savefig(out_path_AUC_func_P,bbox_inches='tight')
     plt.close()
