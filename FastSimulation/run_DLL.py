@@ -329,12 +329,12 @@ def plot_DLL(kaons,pions,out_folder,datatype,sim_type):
 
     # ROC Curve
     plt.figure()
-    plt.plot(rejections_geom,efficiencies_geom, color='blue', lw=2, label='Classical Method. Area = %0.3f' % auc_geom)
-    plt.plot(rejections,efficiencies,color='red', lw=2, label='NF. Area = %0.3f' % auc)
+    plt.plot(rejections_geom,efficiencies_geom, color='blue', lw=2, label='Geometric Method. AUC = %0.3f' % auc_geom)
+    plt.plot(rejections,efficiencies,color='red', lw=2, label='NF-DLL. AUC = %0.3f' % auc)
     plot_swin = False
     if plot_swin:
        swin_default = np.load("../Transformer/swin_results.pkl",allow_pickle=True)
-       plt.plot(swin_default['rejections'],swin_default['efficiencies'],color='k',lw=2,label='Swin. Area = %0.3f' % swin_default['auc'])
+       plt.plot(swin_default['rejections'],swin_default['efficiencies'],color='k',lw=2,label='Swin. AUC = %0.3f' % swin_default['auc'])
     plt.plot([0, 1], [1, 0], color='grey', lw=2, linestyle='--')
     plt.xlim([0.0, 1.0])
     plt.ylim([0.0, 1.05])
@@ -420,8 +420,8 @@ def plot_DLL(kaons,pions,out_folder,datatype,sim_type):
     if plot_swin:
         swin = np.load("../Transformer/auc_func_p_swin.pkl",allow_pickle=True)
 
-    plt.errorbar(centers,aucs_geom,yerr=[np.array(aucs_geom) - np.array(aucs_geom_lower),np.array(aucs_geom_upper) - np.array(aucs_geom)],label=r"$AUC_{Classical.}$",color='blue',marker='o',capsize=5)
-    plt.errorbar(centers,aucs,yerr=[np.array(aucs) - np.array(aucs_lower),np.array(aucs_upper) - np.array(aucs)],label=r"$AUC_{NF.}$",color='red',marker='o',capsize=5)
+    plt.errorbar(centers,aucs_geom,yerr=[np.array(aucs_geom) - np.array(aucs_geom_lower),np.array(aucs_geom_upper) - np.array(aucs_geom)],label=r"$AUC_{Geometric.}$",color='blue',marker='o',capsize=5)
+    plt.errorbar(centers,aucs,yerr=[np.array(aucs) - np.array(aucs_lower),np.array(aucs_upper) - np.array(aucs)],label=r"$AUC_{NF-DLL.}$",color='red',marker='o',capsize=5)
     if plot_swin:
         plt.errorbar(centers,swin['aucs'],yerr=[np.array(swin['aucs']) - np.array(swin['lowers']),np.array(swin['uppers']) - np.array(swin['aucs'])],label=r"$AUC_{Swin.}$",color='k',marker='o',capsize=5)
     legend1 = plt.legend(loc='lower left', fontsize=24)
