@@ -3,7 +3,7 @@
 ## Deeper Reconstruciton of Imaging Cherenkov Detectors
 
 
-The code base for: arxiv link.
+The code base for: [DeeperRICH]{https://arxiv.org/abs/2407.07376}
 
 
 # Abstract 
