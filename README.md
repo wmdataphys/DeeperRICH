@@ -1,7 +1,4 @@
-# Deep(er)RICH
-
-## [Deep(er) Reconstruction of Imaging Cherenkov Detectors with Swin Transformers and Normalizing Flow Models](https://arxiv.org/abs/2407.07376)
-
+# [Deep(er) Reconstruction of Imaging Cherenkov Detectors with Swin Transformers and Normalizing Flow Models](https://arxiv.org/abs/2407.07376)
 
 # Abstract 
 Imaging Cherenkov detectors are crucial for particle identification (PID) in nuclear and particle physics experiments. Fast reconstruction algorithms are essential for real-time alignment, calibration, data quality control, and speeding up analysis. At the future Electron-Ion Collider (EIC), the ePIC detector will feature a dual Ring Imaging Cherenkov (dual-RICH) detector in the hadron direction, a Detector of Internally Reflected Cherenkov (DIRC) in the barrel, and a proximity focus RICH in the electron direction. This paper focuses on the DIRC detector, which presents complex hit patterns and is also used for PID of pions and kaons in the \gluex experiment at JLab. We present Deep(er)RICH, an extension of the seminal DeepRICH work, offering improved and faster PID compared to traditional methods and, for the first time, fast and accurate simulation. This advancement addresses a major bottleneck in Cherenkov detector simulations involving photon tracking through complex surfaces.
@@ -10,7 +7,7 @@ We conclude by discussing the implications and future extensions of this work, w
 
 # Contents
 - [Requirements](#Section-1)
-- [Dataset Access](#Section-2)
+- [Dataset Processing](#Section-2)
 - [Deep(er)RICH](#Section-3)
 - [Usage](#Section-4)
     
@@ -33,7 +30,7 @@ Note that some packages (such as FrEAI or NFlows) may not install properly. In t
 
 `$ python3 -m pip install <package>`
 
-# Dataset Access
+# Dataset Processing
 
 Data is processed within the FastSimulation folder. The output format of simulation produces flat trees that we will process with a C script in ROOT. The output ROOT files from simulation can be merged into a single file, or left as individual smaller files. We will work within the **ROOT_Processing** folder.
 
