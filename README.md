@@ -1,9 +1,6 @@
 # Deep(er)RICH
 
-## Deeper Reconstruciton of Imaging Cherenkov Detectors
-
-
-Link to paper: [Deep(er) Reconstruction of Imaging Cherenkov Detectors with Swin Transformers and Normalizing Flow Models](https://arxiv.org/abs/2407.07376)
+## [Deep(er) Reconstruction of Imaging Cherenkov Detectors with Swin Transformers and Normalizing Flow Models](https://arxiv.org/abs/2407.07376)
 
 
 # Abstract 
