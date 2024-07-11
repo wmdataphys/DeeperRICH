@@ -173,9 +173,9 @@ def main(config,trained_as_distributed):
     # ROC Curve
     #swin = np.load("swin_results_2x_NF.pkl",allow_pickle=True)
     fig = plt.figure()
-    plt.plot(rejections_geom,efficiencies_geom, color='blue', lw=2, label=r'Classical Method. Area = {0:.3f}'.format(auc_geom))
-    plt.plot(rejections,efficiencies,color='red', lw=2, label=r'Swin. Area = {0:.3f}'.format(auc))
-    #plt.plot(swin['rejections'],swin['efficiencies'],color='k',label=r'Swin$._{2x \; Fast Sim}$'+ ' Area = {0:.3f}'.format(swin['auc']))
+    plt.plot(rejections_geom,efficiencies_geom, color='blue', lw=2, label=r'Geometric Method. AUC = {0:.3f}'.format(auc_geom))
+    plt.plot(rejections,efficiencies,color='red', lw=2, label=r'Swin. AUC = {0:.3f}'.format(auc))
+    #plt.plot(swin['rejections'],swin['efficiencies'],color='k',label=r'Swin$._{2x \; Fast Sim}$'+ ' AUC = {0:.3f}'.format(swin['auc']))
     plt.plot([0, 1], [1, 0], color='k', lw=2, linestyle='--')
     plt.xlim([0.0, 1.0])
     plt.ylim([0.0, 1.05])
@@ -272,7 +272,7 @@ def main(config,trained_as_distributed):
     #    pickle.dump(to_dump,file)
 
     #swin = np.load("auc_func_p_swin_2x_NF.pkl",allow_pickle=True)
-    plt.errorbar(centers,aucs_geom,yerr=[np.array(aucs_geom) - np.array(aucs_geom_lower),np.array(aucs_geom_upper) - np.array(aucs_geom)],label=r"$AUC_{Classical.}$",color='blue',marker='o',capsize=5)
+    plt.errorbar(centers,aucs_geom,yerr=[np.array(aucs_geom) - np.array(aucs_geom_lower),np.array(aucs_geom_upper) - np.array(aucs_geom)],label=r"$AUC_{Geometric.}$",color='blue',marker='o',capsize=5)
     plt.errorbar(centers,aucs,yerr=[np.array(aucs) - np.array(aucs_lower),np.array(aucs_upper) - np.array(aucs)],label=r"$AUC_{Swin.}$",color='red',marker='o',capsize=5)
     #plt.errorbar(centers,swin['aucs'],yerr=[np.array(swin['aucs']) - np.array(swin['lowers']),np.array(swin['uppers']) - np.array(swin['aucs'])],label=r"$AUC_{Swin._{2x \; Fast Sim.}}$",color='k',marker='o',capsize=5)
     #plt.legend(loc=(0.602,0.67),fontsize=20)
@@ -282,9 +282,9 @@ def main(config,trained_as_distributed):
     legend1.get_frame().set_alpha(1.0)  # Set legend alpha
     plt.xlabel("momentum [GeV/c]",fontsize=30,labelpad=10)
     plt.ylabel("AUC",fontsize=30,labelpad=10)
-    plt.xticks(fontsize=22)  # adjust fontsize as needed
-    plt.yticks(fontsize=22)  # adjust fontsize as needed
-    plt.title("AUC as function of momentum",fontsize=32)
+    plt.xticks(fontsize=20)  # adjust fontsize as needed
+    plt.yticks(fontsize=20)  # adjust fontsize as needed
+    #plt.title("AUC as function of momentum",fontsize=32)
     if np.min(aucs) < np.min(aucs_geom):
         min_aucs = np.min(aucs)
     else:
